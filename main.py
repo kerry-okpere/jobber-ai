@@ -23,23 +23,55 @@ import requests
 import gspread
 from google.oauth2.service_account import Credentials
 
-SHEET_NAME = "Jobs"
+SHEET_NAME = "Job Strategy 2026"
 
 JOB_TITLES = [
-    "frontend", "front-end", "front end",
-    "react developer", "react engineer",
-    "vue developer", "vue engineer",
-    "ui engineer", "ui developer",
-    "web engineer", "product engineer",
+    "frontend",
+    "front-end",
+    "front end",
+    "react developer",
+    "react engineer",
+    "vue developer",
+    "vue engineer",
+    "ui engineer",
+    "ui developer",
+    "web engineer",
+    "product engineer",
 ]
 JOB_TITLES_NOT = [
-    "backend", "back-end", "fullstack", "full-stack", "full stack",
-    "python", "ruby", "java", "devops", "embedded",
-    "data engineer", "machine learning", "android", "ios", "mobile",
+    "backend",
+    "back-end",
+    "fullstack",
+    "full-stack",
+    "full stack",
+    "python",
+    "ruby",
+    "java",
+    "devops",
+    "embedded",
+    "data engineer",
+    "machine learning",
+    "android",
+    "ios",
+    "mobile",
 ]
 COUNTRIES = [
-    "GB", "DE", "NL", "IE", "SE", "DK", "NO", "FI",
-    "PL", "PT", "ES", "FR", "BE", "AT", "CH", "AE",
+    "GB",
+    "DE",
+    "NL",
+    "IE",
+    "SE",
+    "DK",
+    "NO",
+    "FI",
+    "PL",
+    "PT",
+    "ES",
+    "FR",
+    "BE",
+    "AT",
+    "CH",
+    "AE",
 ]
 
 
@@ -110,7 +142,8 @@ def build_html(jobs, today, spreadsheet_id, sheet_status):
         badge = (
             '<span style="background:#22c55e;color:#fff;padding:2px 6px;'
             'border-radius:3px;font-size:11px;font-weight:bold;">SPONSORS</span> '
-            if is_sponsor(j) else ""
+            if is_sponsor(j)
+            else ""
         )
         location = j.get("location") or j.get("job_country_code", "")
         rows_html.append(
@@ -177,7 +210,9 @@ def main():
     subject = f"Frontend Jobs {today}: {len(jobs)} found, {sponsor_count} sponsor"
     send_email(html, subject, sender, password, recipient)
 
-    print(f"{len(jobs)} jobs found, {sheet_status}, {sponsor_count} sponsors, email sent")
+    print(
+        f"{len(jobs)} jobs found, {sheet_status}, {sponsor_count} sponsors, email sent"
+    )
 
 
 if __name__ == "__main__":
