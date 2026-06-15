@@ -21,9 +21,12 @@ from email.mime.text import MIMEText
 
 import requests
 import gspread
+from dotenv import load_dotenv
 from google.oauth2.service_account import Credentials
 
-SHEET_NAME = "Job Strategy 2026"
+load_dotenv()
+
+SHEET_NAME = "Jobs"
 
 JOB_TITLES = [
     "frontend",
