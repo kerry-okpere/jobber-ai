@@ -1,0 +1,31 @@
+name: Daily Frontend Jobs
+
+on:
+  schedule:
+    # GitHub cron runs in UTC. 03:00 UTC = 04:00 Lagos (WAT, UTC+1).
+    - cron: "0 3 * * *"
+  workflow_dispatch: {}  # lets you trigger a run manually from the Actions tab
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install uv && uv sync
+
+      - name: Run digest
+        env:
+          THEIRSTACK_TOKEN: ${{ secrets.THEIRSTACK_TOKEN }}
+          SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          EMAIL_ADDRESS: ${{ secrets.EMAIL_ADDRESS }}
+          EMAIL_APP_PASSWORD: ${{ secrets.EMAIL_APP_PASSWORD }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+        run: python main.py
